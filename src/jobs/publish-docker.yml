@@ -1,10 +1,8 @@
 description: >
   Build and publish the docker image.
 
-executor: default
-
-machine:
-  image: ubuntu-2004:current
+docker:
+  - image: cimg/base:2022.09
 
 parameters:
   image:
