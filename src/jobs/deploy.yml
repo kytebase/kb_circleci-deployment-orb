@@ -25,7 +25,7 @@ steps:
       command: <<include(scripts/add-known-host.sh)>>
   - run:
       name: "Install kustomize"
-      command: curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
+      command: <<include(scripts/install-kustomize.sh)>>
   - github-cli/setup
   - run:
       name: "Setup git"
