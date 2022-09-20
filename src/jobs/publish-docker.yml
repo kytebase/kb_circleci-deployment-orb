@@ -1,0 +1,28 @@
+description: >
+  Build and publish the docker image.
+
+executor: default
+
+machine:
+  image: ubuntu-2004:current
+
+parameters:
+  image:
+    description: Docker image
+    type: string
+steps:
+  - checkout
+  - run:
+      name: Docker Login
+      command: docker login registry.gitlab.com -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
+  - run:
+      name: Docker Build
+      command: |
+        docker build \
+          --cache-from << parameters.image >>:$CIRCLE_SHA1 \
+          --tag << parameters.image >>:$CIRCLE_SHA1 \
+          --build-arg BUILDKIT_INLINE_CACHE=1 \
+          "."
+  - run:
+      name: Docker Push
+      command: docker push << parameters.image >>:$CIRCLE_SHA1
