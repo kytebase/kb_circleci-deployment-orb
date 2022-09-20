@@ -8,6 +8,8 @@ parameters:
   image:
     description: Docker image
     type: string
+environment:
+  PARAM_IMAGE: << parameters.image >>
 steps:
   - checkout
   - run:
