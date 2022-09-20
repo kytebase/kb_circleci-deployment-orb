@@ -1,0 +1,41 @@
+description: >
+  Deploy the given service image on the server.
+
+docker:
+  - image: cimg/base:stable
+
+parameters:
+  image:
+    description: Docker image
+    type: string
+  app:
+    description: Application name in the apps repo.
+    type: string
+  service:
+    description: Service name in the app.
+    type: string
+environment:
+  PARAM_IMAGE: << parameters.image >>
+  PARAM_APP: << parameters.app >>
+  PARAM_SERVICE: << parameters.service >>
+steps:
+  - add_ssh_keys
+  - run:
+      name: "Add known host"
+      command: <<include(scripts/add-known-host.sh)>>
+  - run:
+      name: "Install kustomize"
+      command: curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
+  - github-cli/setup
+  - run:
+      name: "Setup git"
+      command: <<include(scripts/setup-git.sh)>>
+  - run:
+      name: "Git Clone"
+      command: git clone git@github.com:wplus-incubator-platform/apps.git
+  - run:
+      name: "Update image tag"
+      command: <<include(scripts/update-image-tag.sh)>>
+  - run:
+      name: "Commit and push"
+      command: <<include(scripts/commit-and-push.sh)>>
