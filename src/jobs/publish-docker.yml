@@ -14,7 +14,7 @@ steps:
   - checkout
   - run:
       name: Docker Login
-      command: docker login registry.gitlab.com -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
+      command: <<include(scripts/docker-login.sh)>>
   - run:
       name: Docker Build
       command: <<include(scripts/docker-build.sh)>>
