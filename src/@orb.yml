@@ -5,7 +5,7 @@ description: >
   update the service tag at the manifests repository.
 
 display:
-  home_url: "https://kytebase.cloud/"
+  home_url: "https://github.com/kytebase"
   source_url: "https://github.com/kytebase/kb_circleci-deployment-orb"
 
 orbs:
