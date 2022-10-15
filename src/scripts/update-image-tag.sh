@@ -9,7 +9,7 @@ for app in $PARAM_APP; do
     if [ ! -d "$K8S_DIR" ] 
     then
         echo "Updating: $app"
-        cd $K8S_DIR || exit
+        cd "$K8S_DIR" || exit
         /home/circleci/project/kustomize edit set image "$PARAM_IMAGE"="$PARAM_IMAGE":"$CIRCLE_SHA1"
     else
         echo "Skipped: $app"
