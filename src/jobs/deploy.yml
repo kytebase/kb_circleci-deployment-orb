@@ -19,10 +19,6 @@ environment:
   PARAM_APP: << parameters.app >>
   PARAM_SERVICE: << parameters.service >>
 steps:
-  - add_ssh_keys
-  - run:
-      name: "Add known host"
-      command: <<include(scripts/add-known-host.sh)>>
   - run:
       name: "Install kustomize"
       command: <<include(scripts/install-kustomize.sh)>>
@@ -30,9 +26,9 @@ steps:
   - run:
       name: "Setup git"
       command: <<include(scripts/setup-git.sh)>>
-  - run:
-      name: "Git Clone"
-      command: git clone git@github.com:wplus-incubator-platform/apps.git
+  - github-cli/clone:
+      repo: https://github.com/kb-infra/apps.git
+      dir: apps
   - run:
       name: "Update image tag"
       command: <<include(scripts/update-image-tag.sh)>>
