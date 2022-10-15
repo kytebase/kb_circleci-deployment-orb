@@ -6,7 +6,7 @@ ROOT_DIR=$(pwd)
 for app in $PARAM_APP; do
     K8S_DIR="$ROOT_DIR/apps/$app/environments/$DEPLOY_ENV/k8s"
 
-    if [ ! -d "$K8S_DIR" ] 
+    if [ -d "$K8S_DIR" ] 
     then
         echo "Updating: $app"
         cd "$K8S_DIR" || exit
